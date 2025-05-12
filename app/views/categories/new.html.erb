@@ -1,0 +1,8 @@
+<h1><strong>New Category</strong></h1>
+
+<%= simple_form_for @category do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit, "Create Category", class: "btn btn-outline-warning" %>
+<% end %>
+
+<%= link_to "🔙Back", categories_path, class: "btn btn-outline-info"%>
