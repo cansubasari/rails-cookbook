@@ -1,9 +1,16 @@
-<h1><strong>All Categories</strong></h1>
+<div class="banner mb-4">
+  <div class="banner-content text-center text-white">
+    <h1 class="display-4 fw-bold">Welcome to the Dani's Cookbook</h1>
+    <p class="lead">Explore recipes by category. Add your own favorites!</p>
+  </div>
+</div>
 
-<ul>
+<h1 class="categories-heading"><strong>All Categories</strong></h1>
+
+<div class="d-flex flex-wrap gap-3 mt-3">
   <% @categories.each do |category| %>
-    <li><%= link_to category.name, category_path(category) %></li>
+    <%= link_to category.name, category_path(category), class: "btn btn-outline-dark px-4 py-2" %><br>
   <% end %>
-</ul>
+</div><br>
 
 <%= link_to "➕Add New Category", new_category_path, class: "btn btn-outline-primary" %>
