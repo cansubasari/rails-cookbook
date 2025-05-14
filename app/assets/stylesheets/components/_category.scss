@@ -1,0 +1,16 @@
+.category-card-link {
+  text-decoration: none;
+  color: #ef233c;
+
+  h3 {
+    color: #2c2c2c;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+  }
+
+  &:hover h3 {
+    color: #ef233c; 
+  }
+}

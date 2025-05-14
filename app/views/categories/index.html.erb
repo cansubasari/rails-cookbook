@@ -5,12 +5,32 @@
   </div>
 </div>
 
-<h1 class="categories-heading"><strong>All Categories</strong></h1>
+<h1 class="categories-heading text-center"><strong>All Categories</strong></h1>
 
-<div class="d-flex flex-wrap gap-3 mt-3">
-  <% @categories.each do |category| %>
-    <%= link_to category.name, category_path(category), class: "btn btn-outline-dark px-4 py-2" %><br>
+<div class="container">
+  <div class="row justify-content-center">
+    <% @categories.each do |category| %>
+  <% if category.image.attached? || category.image_url.present? %>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <%= link_to category_path(category), class: "category-card-link" do %>
+        <div class="category-card text-center">
+          <% if category.image.attached? %>
+            <%= image_tag category.image, alt: category.name, class: "category-img" %>
+          <% else %>
+            <%= image_tag category.image_url, alt: category.name, class: "category-img" %>
+          <% end %>
+          <h3 class="mt-2"><%= category.name %></h3>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</div><br>
+<% end %>
 
-<%= link_to "➕Add New Category", new_category_path, class: "btn btn-outline-primary" %>
+<div class="col-md-3 col-sm-6 mb-4">
+  <%= link_to new_category_path, class: "category-card-link" do %>
+    <div class="category-card text-center d-flex flex-column align-items-center justify-content-center" style="height: 100%; padding: 30px;">
+      <i class="fas fa-plus fa-2x mb-2"></i>
+      <span>Add New Category</span>
+    </div>
+  <% end %>
+</div>

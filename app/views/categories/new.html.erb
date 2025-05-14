@@ -1,8 +1,16 @@
-<h1><strong>New Category</strong></h1>
+<div class="form-new">
+  <h5>Add a new Category</h5>
 
-<%= simple_form_for @category do |f| %>
-  <%= f.input :name %>
-  <%= f.button :submit, "Create Category", class: "btn btn-outline-warning" %>
-<% end %>
+  <%= simple_form_for(@category, html: { multipart: true }) do |f| %>
+    <%= f.input :name, placeholder: "The category name..." %>
+    <%= f.input :image_url, as: :file %>
+    <%= f.button :submit, "Create Category", class: "btn btn-warning mt-2" %>
+  <% end %>
+</div>
 
-<%= link_to "🔙Back", categories_path, class: "btn btn-outline-info"%>
+<div class="d-flex justify-content-center mt-3">
+  <%= link_to categories_path, class: "btn btn-outline-secondary d-inline-flex align-items-center gap-2" do %>
+    <i class="fas fa-arrow-left"></i>
+    Back
+  <% end %>
+</div>

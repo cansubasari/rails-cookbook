@@ -1,9 +1,19 @@
-<h1><strong>Add Recipe to <%= @category.name %></strong></h1>
+<div class="form-new">
+  <h2>Add a Recipe to <%= @category.name %></h2>
 
-<%= simple_form_for [@category, @bookmark] do |f| %>
-  <%= f.association :recipe %>
-  <%= f.input :comment %>
-  <%= f.button :submit, "Add Bookmark", class: "btn btn-outline-success" %>
-<% end %>
+  <%= simple_form_for [@category, @bookmark] do |f| %>
+    <div class="form-group">
+      <%= f.association :recipe, prompt: "Select a recipe", input_html: { class: "form-control" } %>
+    </div>
 
-<%= link_to "Back to Category", category_path(@category), class: "btn btn-outline-primary" %>
+    <div class="form-group">
+      <%= f.input :comment, placeholder: "Your comment here...", input_html: { class: "form-control" } %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Add Recipe", class: "btn btn-warning" %>
+    </div>
+  <% end %>
+
+  <%= link_to "← Back to Category", category_path(@category), class: "btn btn-outline-secondary mt-3" %>
+</div>

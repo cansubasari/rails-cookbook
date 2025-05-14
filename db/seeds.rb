@@ -1,12 +1,10 @@
-puts "Cleaning database.."
-Recipe.destroy_all
 puts "Adding recipes.."
 
 recipes = [
   {
     name: "Spaghetti Carbonara",
     description: "A classic Roman pasta with eggs, cheese, pancetta, and pepper.",
-    image_url: "https://media.istockphoto.com/id/1065506718/photo/carbonara-pasta-spaghetti-with-pancetta-egg-parmesan-cheese-and-cream-sauce-traditional.jpg?s=2048x2048&w=is&k=20&c=redISdsQUulGgIyFzZfEuLj4IAZRgltJomGqTv1kkh4=",
+    image_url: "https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.webp?a=1&b=1&s=612x612&w=0&k=20&c=JQzF3EBMOs06KMLskSGV_P0rhzl7oFeoEV8Uq-1w_Vk=",
     rating: 4.5
   },
   {
@@ -36,7 +34,7 @@ recipes = [
   {
   name: "Avocado Toast",
   description: "Toasted sourdough bread topped with smashed avocado, lemon juice, and chili flakes.",
-  image_url: "https://media.istockphoto.com/id/1214212184/photo/avocado-and-poached-egg-toast-on-rye-bread-top-view.jpg?s=2048x2048&w=is&k=20&c=5x98lv9AkzGxW4lKaqT-8rCmbNcadzeMwHxTScSZiDY=",
+  image_url: "https://media.istockphoto.com/id/1214212184/photo/avocado-and-poached-egg-toast-on-rye-bread-top-view.webp?a=1&b=1&s=612x612&w=0&k=20&c=SAGFAynH_A5M_s8-ALY2350rTNZC5xnc4Rht5ZcBuNo=",
   rating: 4.5
   },
   {
@@ -53,8 +51,33 @@ recipes = [
   }
 ]
 
+categories = [
+  {
+    name: "Breakfast",
+    image_url: "https://media.istockphoto.com/id/2018089052/photo/breakfast-or-brunch-table-scene-on-a-dark-wood-background-overhead-view.jpg?s=612x612&w=0&k=20&c=mv-gn3zxwpBqL2ZNJNcmI0YSI5VPkSiF-8KYPOCN0Aw="
+  },
+  {
+    name: "Lunch",
+    image_url: "https://media.istockphoto.com/id/2153766816/photo/spring-fresh-food-with-green-leaf-salads-with-strawberries-bacon-and-ravioli-on-light-wooden.jpg?s=612x612&w=0&k=20&c=HDzYMJNPf-NWMgx--M_rcCCAgqzLCcFU4J7uKDsxrAE="
+  },
+  {
+    name: "Italian",
+    image_url: "https://media.istockphoto.com/id/587815190/photo/italian-antipasti-wine-snacks-set-over-black-grunge-background.jpg?s=612x612&w=0&k=20&c=fmy7Ft1tORZihL4BK2ZGsKCwJIc-R4hv-VzljOMMUCE="
+  },
+  {
+    name: "Chinese",
+    image_url: "https://media.istockphoto.com/id/1366953086/photo/korean-dishes.jpg?s=612x612&w=0&k=20&c=3nYEdg3y3HfAeJu-Vf5GQYO3iEhFm-syRgSFr6hL874="
+  }
+]
+
 recipes.each do |recipe_data|
-  Recipe.create!(recipe_data)
+  recipe = Recipe.find_or_initialize_by(name: recipe_data[:name])
+  recipe.update!(recipe_data)
+end
+
+categories.each do |category_attrs|
+  category = Category.find_or_initialize_by(name: category_attrs[:name])
+  category.update!(category_attrs)
 end
 
 puts "Done seeding!"
