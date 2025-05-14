@@ -12,6 +12,7 @@
 
           <div class="card-body">
             <h5 class="card-title"><%= bookmark.recipe.name %></h5>
+            <p class="text-muted">Rating: <%= "⭐" * bookmark.recipe.rating.to_i %></p>
             <p class="card-text"><%= bookmark.recipe.description %></p>
             <% if bookmark.comment.present? %>
               <p class="text-muted"><%= bookmark.comment %></p>

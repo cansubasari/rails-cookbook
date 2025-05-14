@@ -1,3 +1,6 @@
+require "json"
+require "open-uri"
+
 puts "Adding recipes.."
 
 recipes = [
@@ -69,6 +72,30 @@ categories = [
     image_url: "https://media.istockphoto.com/id/1366953086/photo/korean-dishes.jpg?s=612x612&w=0&k=20&c=3nYEdg3y3HfAeJu-Vf5GQYO3iEhFm-syRgSFr6hL874="
   }
 ]
+
+new_categories = ["Seafood", "Dessert", "Vegetarian", "Chicken"]
+
+def recipe_builder(id)
+  url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=#{id}"
+  meal_serialized = URI.parse(url).read
+  meal = JSON.parse(meal_serialized)["meals"][0]
+
+  Recipe.create!(
+    name: meal["strMeal"],
+    description: meal["strInstructions"],
+    image_url: meal["strMealThumb"],
+    rating: rand(2..5.0).round(1)
+  )
+end
+
+new_categories.each do |new_category|
+  url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=#{new_category}"
+  recipe_list = URI.parse(url).read
+  new_recipes = JSON.parse(recipe_list)
+  new_recipes["meals"].take(10).each do |new_recipe|
+    recipe_builder(new_recipe["idMeal"])
+  end
+end
 
 recipes.each do |recipe_data|
   recipe = Recipe.find_or_initialize_by(name: recipe_data[:name])
